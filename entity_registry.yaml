@@ -1,0 +1,420 @@
+sensor.2gig_technologies_ct101_thermostat_iris_temperature:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 2-72057594076479506
+climate.2gig_technologies_ct101_thermostat_iris_heating_1:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 2-72057594076774418
+climate.2gig_technologies_ct101_thermostat_iris_cooling_1:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 2-72057594076774434
+switch.ge_45609_onoff_relay_switch_switch:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 3-72057594093060096
+switch.ge_45609_onoff_relay_switch_switch_2:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 4-72057594109837312
+sensor.alarm_type:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 5-72057594127859713
+sensor.alarm_level:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 5-72057594127859729
+sensor.alarm_type_2:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 6-72057594144636929
+sensor.alarm_level_2:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 6-72057594144636945
+binary_sensor.sensor:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 6-72057594143571968
+sensor.vision_zd2102_eu_doorwindow_sensor_sourcenodeid:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 6-72057594144636961
+sensor.vision_zd2102_eu_doorwindow_sensor_access_control:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 6-72057594144637073
+sensor.vision_zd2102_eu_doorwindow_sensor_burglar:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 6-72057594144637089
+sensor.vision_zd2102_eu_doorwindow_sensor_power_management:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 6-72057594144637105
+sensor.vision_zd2102_eu_doorwindow_sensor_system:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 6-72057594144637121
+sensor.vision_zd2102_eu_doorwindow_sensor_emergency:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 6-72057594144637137
+sensor.vision_zd2102_eu_doorwindow_sensor_clock:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 6-72057594144637153
+sensor.vision_zd2102_eu_doorwindow_sensor_appliance:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 6-72057594144637169
+sensor.vision_zd2102_eu_doorwindow_sensor_homehealth:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 6-72057594144637185
+lock.locked:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 7-72057594161168384
+sensor.kwikset_touchpad_electronic_deadbolt_alarm_type:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 7-72057594161414145
+sensor.kwikset_touchpad_electronic_deadbolt_alarm_level:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 7-72057594161414161
+media_player.master_bedroom_speaker:
+  config_entry_id: b1c00b33f01e40bb99eac549a4ba0fad
+  name:
+  platform: cast
+  unique_id: 6e6dae57-9372-1a60-db77-de7c39e610bd
+media_player.unnamed_device:
+  config_entry_id:
+  name:
+  platform: plex
+  unique_id: u9fmklzalabuxg1ybop79dlh
+media_player.plex_web_chrome:
+  config_entry_id:
+  name:
+  platform: plex
+  unique_id: ketxotpwji2olw5xrmunbjhe
+media_player.chrome:
+  config_entry_id:
+  name:
+  platform: plex
+  unique_id: 9q23anx179ew69tawroibkf4
+sensor.alarm_type_3:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 8-72057594178191361
+sensor.alarm_level_3:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 8-72057594178191377
+binary_sensor.hank_hkzwdws01_doorwindow_sensor_sensor:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 8-72057594177126400
+sensor.hank_hkzwdws01_doorwindow_sensor_sourcenodeid:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 8-72057594178191393
+sensor.hank_hkzwdws01_doorwindow_sensor_access_control:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 8-72057594178191505
+sensor.hank_hkzwdws01_doorwindow_sensor_burglar:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 8-72057594178191521
+sensor.alarm_type_4:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 9-72057594194968577
+sensor.alarm_level_4:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 9-72057594194968593
+binary_sensor.sensor_2:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 9-72057594193903616
+sensor.vision_zp3111_multisensor_4in1_temperature:
+  config_entry_id:
+  name: Hall Bathroom Temp
+  platform: zwave
+  unique_id: 9-72057594193920018
+sensor.vision_zp3111_multisensor_4in1_luminance:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 9-72057594193920050
+sensor.vision_zp3111_multisensor_4in1_relative_humidity:
+  config_entry_id:
+  name: Hall Bathroom Humidity
+  platform: zwave
+  unique_id: 9-72057594193920082
+sensor.vision_zp3111_multisensor_4in1_sourcenodeid:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 9-72057594194968609
+sensor.vision_zp3111_multisensor_4in1_burglar:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 9-72057594194968737
+sensor.vision_zp3111_multisensor_4in1_clock:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 9-72057594194968801
+sensor.vision_zp3111_multisensor_4in1_appliance:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 9-72057594194968817
+sensor.alarm_type_5:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 10-72057594211745793
+sensor.alarm_level_5:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 10-72057594211745809
+binary_sensor.sensor_3:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 10-72057594210680832
+sensor.vision_zd2102_eu_doorwindow_sensor_sourcenodeid_2:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 10-72057594211745825
+sensor.vision_zd2102_eu_doorwindow_sensor_access_control_2:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 10-72057594211745937
+sensor.vision_zd2102_eu_doorwindow_sensor_burglar_2:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 10-72057594211745953
+sensor.vision_zd2102_eu_doorwindow_sensor_clock_2:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 10-72057594211746017
+sensor.vision_zd2102_eu_doorwindow_sensor_appliance_2:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 10-72057594211746033
+sensor.vision_zd2102_eu_doorwindow_sensor_homehealth_2:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 10-72057594211746049
+media_player.chrome_2:
+  config_entry_id:
+  name:
+  platform: plex
+  unique_id: f6n9zq9l2odb8xw14nykslki
+sensor.pws_precip_today_in:
+  config_entry_id:
+  name:
+  platform: wunderground
+  unique_id: '@-86.645878,30.415183,precip_today_in'
+sensor.pws_feelslike_f:
+  config_entry_id:
+  name:
+  platform: wunderground
+  unique_id: '@-86.645878,30.415183,feelslike_f'
+zwave.sigma_designs_uzb_zwave_usb_adapter:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: node-1
+zwave.2gig_technologies_ct101_thermostat_iris:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: node-2
+zwave.ge_45609_onoff_relay_switch:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: node-3
+zwave.ge_45609_onoff_relay_switch_2:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: node-4
+zwave.vision_zd2102_eu_doorwindow_sensor:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: node-6
+zwave.kwikset_touchpad_electronic_deadbolt:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: node-7
+zwave.hank_hkzwdws01_doorwindow_sensor:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: node-8
+zwave.bathroom_multisensor:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: node-9
+zwave.front_door_sensor:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: node-10
+zwave.everspring_se812_siren:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: node-11
+switch.everspring_se812_siren_switch:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 11-72057594227277824
+sensor.everspring_se812_siren_alarm_type:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 11-72057594228523009
+sensor.everspring_se812_siren_alarm_level:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 11-72057594228523025
+zwave.first_alert_unknown_type0001_id0001:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: node-12
+sensor.first_alert_unknown_type0001_id0001_alarm_type:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 12-72057594245300225
+sensor.first_alert_unknown_type0001_id0001_alarm_level:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 12-72057594245300241
+switch.ge_45609_onoff_relay_switch_switch_3:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 13-72057594260832256
+zwave.ge_45609_onoff_relay_switch_3:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: node-13
+sensor.centralite_3326l_106cf116_1_1026:
+  config_entry_id:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:10:6c:f1:16-1-1026
+binary_sensor.centralite_3326l_106cf116_1_1280:
+  config_entry_id:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:10:6c:f1:16-1-1280
+sensor.centralite_3320l_1099e14b_1_1026:
+  config_entry_id:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:10:99:e1:4b-1-1026
+binary_sensor.centralite_3320l_1099e14b_1_1280:
+  config_entry_id:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:10:99:e1:4b-1-1280
+sensor.centralite_3210l_0b4f81d1_1_1794:
+  config_entry_id:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:4f:81:d1-1-1794
+sensor.centralite_3210l_0b4f81d1_1_2820:
+  config_entry_id:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:4f:81:d1-1-2820
+switch.centralite_3210l_0b4f81d1_1:
+  config_entry_id:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:4f:81:d1-1
+sensor.bathroom_multisensor_power_management:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 9-72057594194968753
+sensor.bathroom_multisensor_homehealth:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 9-72057594194968833
+sensor.2gig_technologies_ct101_thermostat_iris_relative_humidity:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 2-72057594076479570
+sensor.bathroom_multisensor_emergency:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 9-72057594194968785
+sensor.bathroom_multisensor_system:
+  config_entry_id:
+  name:
+  platform: zwave
+  unique_id: 9-72057594194968769

@@ -1,0 +1,14 @@
+resources:
+  - url: /local/alarm_control_panel-card.js?v=1
+    type: js
+views:
+  - title: Alarm Panel
+    id: alarm
+    cards:
+    - type: custom:alarm_control_panel-card  
+      entity: alarm_control_panel.alarm  
+      title: My Alarm  
+      force_keypad: true
+      states:
+        - arm_home
+        - arm_away

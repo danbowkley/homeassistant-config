@@ -1,0 +1,221 @@
+- id: '1504390477853'
+  alias: Porch light on at sunset
+  trigger:
+    event: sunset
+    platform: sun
+  action:
+  - service: switch.turn_on
+    entity_id: switch.ge_45609_onoff_relay_switch_switch_2
+    
+- id: '1530208234790'
+  alias: Outside lights off at sunrise
+  trigger:
+  - event: sunrise
+    platform: sun
+  condition: []
+  action:
+    service: switch.turn_off
+    entity_id:
+    - switch.ge_45609_onoff_relay_switch_switch_2
+    - switch.ge_45609_onoff_relay_switch_switch
+    
+- id: '1533452705906'
+  alias: Trash Notifier
+  trigger:
+    - at: '14:00'
+      platform: time
+  condition:
+    condition: time
+    weekday:
+      - mon
+  action:
+    - service: notify.emaileveryone
+      data:
+        title: Trash Day
+        message: This is an automated message from Home Assistant to remind you to please take the trash out to the curb today. Thank you!
+        
+- id: '1533452705343'
+  alias: Recycling Notifier
+  trigger:
+    - at: '14:00'
+      platform: time
+  condition:
+    condition: time
+    weekday:
+      - thu
+  action:
+    - service: notify.emaileveryone
+      data:
+        title: Recycling Day
+        message: This is an automated message from Home Assistant to remind you to please take the recycling out to the curb today. Thank you!
+        
+- id: '4313245674785'
+  alias: Trigger alarm while armed away
+  trigger:
+    - platform: template
+      value_template: '{% if is_state("binary_sensor.fdstatus", "on") %}true{% endif %}'
+    - platform: template
+      value_template: '{% if is_state("binary_sensor.sdstatus", "on") %}true{% endif %}'
+    - platform: template
+      value_template: '{% if is_state("binary_sensor.gunsafetamper", "on") %}true{% endif %}'
+    - platform: template
+      value_template: '{% if is_state("binary_sensor.hallbathmultisensortamper", "on") %}true{% endif %}'
+    - platform: template
+      value_template: '{% if is_state("binary_sensor.gunsafestatus", "on") %}true{% endif %}'
+    - platform: template
+      value_template: '{% if is_state("binary_sensor.hallbath_motion", "on") %}true{% endif %}'
+    - platform: template
+      value_template: '{% if is_state("binary_sensor.frontdoortamper", "on") %}true{% endif %}'
+    - platform: template
+      value_template: '{% if is_state("binary_sensor.sidedoortamper", "on") %}true{% endif %}'
+    - platform: template
+      value_template: '{% if is_state("binary_sensor.centralite_3320l_1099e14b_1_1280", "on") %}true{% endif %}'
+    - platform: template
+      value_template: '{% if is_state("binary_sensor.centralite_3326l_106cf116_1_1280", "on") %}true{% endif %}'
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.alarm
+      state: armed_away
+  action:
+    - entity_id: alarm_control_panel.alarm
+      service: alarm_control_panel.alarm_trigger
+    
+- id: '4313245674786'
+  alias: Trigger alarm while armed home
+  trigger:
+    - platform: template
+      value_template: '{% if is_state("binary_sensor.fdstatus", "on") %}true{% endif %}'
+    - platform: template
+      value_template: '{% if is_state("binary_sensor.sdstatus", "on") %}true{% endif %}'
+    - platform: template
+      value_template: '{% if is_state("binary_sensor.gunsafetamper", "on") %}true{% endif %}'
+    - platform: template
+      value_template: '{% if is_state("binary_sensor.hallbathmultisensortamper", "on") %}true{% endif %}'
+    - platform: template
+      value_template: '{% if is_state("binary_sensor.frontdoortamper", "on") %}true{% endif %}'
+    - platform: template
+      value_template: '{% if is_state("binary_sensor.sidedoortamper", "on") %}true{% endif %}'
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.alarm
+      state: armed_home
+  action:
+    - entity_id: alarm_control_panel.alarm
+      service: alarm_control_panel.alarm_trigger
+    
+- id: '1324567846345'
+  alias: Send notification when alarm triggered
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.alarm
+      to: triggered
+  action:
+    - service: shell_command.getsnaps
+    - service: notify.emaileveryone
+      data:
+        title: ALARM SYSTEM TRIGGERED
+        message: ATTENTION!! The alarm system has been triggered.
+        data:
+          images:
+          - /home/homeassistant/.homeassistant/www/snapshots/driveway.jpg
+          - /home/homeassistant/.homeassistant/www/snapshots/livingroom.jpg
+          - /home/homeassistant/.homeassistant/www/snapshots/sidedoor.jpg
+          - /home/homeassistant/.homeassistant/www/snapshots/server.jpg
+        
+- id: '1533860122074'
+  alias: Disarm alarm when deadbolt unlocked
+  trigger:
+    - platform: state
+      entity_id: sensor.kwikset_touchpad_electronic_deadbolt_alarm_type
+      to: '22'
+  action:
+    - service: alarm_control_panel.alarm_disarm
+  
+- id: '1589429602672'
+  alias: Silence sirens when alarm is disarmed or rearmed
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.alarm
+      to: disarmed
+    - platform: state
+      entity_id: alarm_control_panel.alarm
+      to: armed_home
+    - platform: state
+      entity_id: alarm_control_panel.alarm
+      to: armed_away
+  action:
+    - service: homeassistant.turn_off
+      entity_id: switch.everspring_se812_siren_switch
+    
+- id: '7926165970272'
+  alias: Sound sirens when alarm is triggered
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.alarm
+      to: triggered
+  action:
+    - service: homeassistant.turn_on
+      entity_id: switch.everspring_se812_siren_switch
+
+- id: '4685773456356'
+  alias: Auto bathroom fan shutoff
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.vision_zp3111_multisensor_4in1_relative_humidity
+      below: 60
+    - platform: state
+      entity_id: switch.ge_45609_onoff_relay_switch_switch_3
+      to: 'on'
+      for:
+        minutes: 5
+  condition:
+    - condition: numeric_state
+      entity_id: sensor.vision_zp3111_multisensor_4in1_relative_humidity
+      below: 60
+    - condition: state
+      entity_id: switch.ge_45609_onoff_relay_switch_switch_3
+      state: 'on'
+      for:
+        minutes: 5
+  action:
+    - service: homeassistant.turn_off
+      entity_id: switch.ge_45609_onoff_relay_switch_switch_3
+
+
+- id: '2345677453356'
+  alias: Auto bathroom fan
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.vision_zp3111_multisensor_4in1_relative_humidity
+      above: 65
+  action:
+    - service: homeassistant.turn_on
+      entity_id: switch.ge_45609_onoff_relay_switch_switch_3
+
+- id: '3265923752362'
+  alias: Reset HVAC Filter Last Changed
+  trigger:
+    - platform: state
+      entity_id: input_boolean.hvac_filter
+      to: 'on'
+  action:
+    - service: input_datetime.set_datetime
+      data_template:
+        entity_id: input_datetime.hvac_filter_last_changed
+        time: '{{ (as_timestamp(now()) | timestamp_custom("%H:%M:%S", true)) }}'
+        date: '{{ (as_timestamp(now()) | timestamp_custom("%Y-%m-%d", true)) }}'
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.hvac_filter
+
+- id: '5673058619573'
+  alias: Reminder to Change HVAC Filter
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.hvac_filter_time_used
+      above: 500
+  action:
+    - service: notify.emaileveryone
+      data:
+        title: HVAC Filter needs to be changed
+        message: Please replace the HVAC filter and let Dan know when you have done so. Thank you!

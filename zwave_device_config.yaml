@@ -1,0 +1,16 @@
+usb_path: /dev/ttyUSB0
+polling_interval: 10000
+network_key: 0x56, 0x7E, 0x64, 0xFE, 0x9D, 0xBE, 0xD6, 0x8E, 0xB7, 0x5D, 0xA5, 0x86, 0x77, 0x33, 0xBC, 0x48
+device_config:
+  sensor.2gig_technologies_ct101_thermostat_iris_relative_humidity:
+    ignored: false
+    polling_intensity: 1
+  sensor.2gig_technologies_ct101_thermostat_iris_temperature:
+    ignored: false
+    polling_intensity: 1
+  climate.2gig_technologies_ct101_thermostat_iris_cooling_1:
+    ignored: false
+    polling_intensity: 1
+  climate.2gig_technologies_ct101_thermostat_iris_heating_1:
+    ignored: false
+    polling_intensity: 1

@@ -1,0 +1,195 @@
+- platform: plex
+  token: !secret plex_token
+  
+- platform: darksky
+  api_key: !secret darksky_api
+  update_interval: '00:05'
+  monitored_conditions:
+    - temperature
+    - nearest_storm_distance
+        
+- platform: systemmonitor
+  resources:
+    - type: disk_use_percent
+      arg: /
+    - type: memory_use_percent
+    - type: processor_use
+          
+- platform: hp_ilo
+  host: 192.168.1.5
+  username: Administrator
+  password: !secret ilo_pw
+  monitored_variables:
+    - name: fan1speed
+      sensor_type: server_health
+      unit_of_measurement: '%'
+      value_template: '{{ ilo_data.fans["Fan 1"].speed[0] }}'
+    - name: fan2speed
+      sensor_type: server_health
+      unit_of_measurement: '%'
+      value_template: '{{ ilo_data.fans["Fan 2"].speed[0] }}'
+    - name: fan3speed
+      sensor_type: server_health
+      unit_of_measurement: '%'
+      value_template: '{{ ilo_data.fans["Fan 3"].speed[0] }}'
+    - name: fan4speed
+      sensor_type: server_health
+      unit_of_measurement: '%'
+      value_template: '{{ ilo_data.fans["Fan 4"].speed[0] }}'
+    - name: fan5speed
+      sensor_type: server_health
+      unit_of_measurement: '%'
+      value_template: '{{ ilo_data.fans["Fan 5"].speed[0] }}'
+    - name: fan6speed
+      sensor_type: server_health
+      unit_of_measurement: '%'
+      value_template: '{{ ilo_data.fans["Fan 6"].speed[0] }}'
+    - name: system temp
+      sensor_type: server_health
+      unit_of_measurement: '°C'
+      value_template: '{{ ilo_data.temperature["Temp 1"].currentreading[0] }}'
+    - name: ambient temp
+      sensor_type: server_health
+      unit_of_measurement: '°C'
+      value_template: '{{ ilo_data.temperature["Temp 29"].currentreading[0] }}'
+    - name: cpu 1 temp
+      sensor_type: server_health
+      unit_of_measurement: '°C'
+      value_template: '{{ ilo_data.temperature["Temp 2"].currentreading[0] }}'
+    - name: cpu 2 temp
+      sensor_type: server_health
+      unit_of_measurement: '°C'
+      value_template: '{{ ilo_data.temperature["Temp 3"].currentreading[0] }}'
+
+- platform: speedtest
+  minute:
+    - 7
+    - 27
+    - 47
+  monitored_conditions:
+    - ping
+    - download
+    - upload
+
+- platform: sql
+  db_url: !secret mysql_dburl
+  queries:
+  - name: 7 Day Average Download Speed
+    query: >
+             SELECT ROUND(AVG(avg_dlspeed),2) 'value'
+             FROM (
+               SELECT AVG(state) AS avg_dlspeed
+               FROM hass.states
+               WHERE entity_id = 'sensor.speedtest_download'
+               AND state != 'unknown'
+               AND state != ''
+               AND created > NOW() - INTERVAL 1 WEEK
+               GROUP BY DATE(created)
+             ) avgs;
+    column: 'value'
+    unit_of_measurement: Mbit/s
+  - name: 30 Day Average Download Speed
+    query: >
+             SELECT ROUND(AVG(avg_dlspeed),2) 'value'
+             FROM (
+               SELECT AVG(state) AS avg_dlspeed
+               FROM hass.states
+               WHERE entity_id = 'sensor.speedtest_download'
+               AND state != 'unknown'
+               AND state != ''
+               AND created > NOW() - INTERVAL 1 MONTH
+               GROUP BY DATE(created)
+             ) avgs;
+    column: 'value'
+    unit_of_measurement: Mbit/s
+  - name: HASS DB size
+    query: >
+             SELECT table_schema 'database', Round(Sum(data_length + index_length) / 1048576, 2) 'value' 
+             FROM information_schema.tables 
+             WHERE table_schema='hass' 
+             GROUP BY table_schema;
+    column: 'value'
+    unit_of_measurement: MiB    
+  - name: House Avg Temp 24h
+    query: >
+             SELECT ROUND(AVG(avg_housetemp),2) 'value'
+             FROM (
+               SELECT AVG(state) AS avg_housetemp
+               FROM hass.states
+               WHERE entity_id = 'sensor.house_average_temperature'
+               AND state != 'unknown'
+               AND state != ''
+               AND created > NOW() - INTERVAL 1 DAY
+               GROUP BY DATE(created)
+             ) avgs;
+    column: 'value'
+    unit_of_measurement: '°F'
+
+- platform: min_max
+  entity_ids:
+    - sensor.hp_ilo_fan1speed
+    - sensor.hp_ilo_fan2speed
+    - sensor.hp_ilo_fan3speed
+    - sensor.hp_ilo_fan4speed
+    - sensor.hp_ilo_fan5speed
+  type: mean
+  name: Server Average Fanspeed
+  round_digits: 1
+ 
+- platform: min_max
+  entity_ids:
+    - sensor.vision_zp3111_multisensor_4in1_temperature
+    - sensor.hp_ilo_ambient_temp
+    - sensor.centralite_3326l_106cf116_1_1026
+    - sensor.centralite_3320l_1099e14b_1_1026
+    - sensor.2gig_technologies_ct101_thermostat_iris_temperature
+  type: mean
+  name: House Average Temperature
+  round_digits: 1
+
+- platform: history_stats
+  name: HVAC Filter Time Used
+  entity_id: binary_sensor.hvacfan
+  state: 'on'
+  type: time
+  start: '{{ states.input_datetime.hvac_filter_last_changed.attributes.timestamp }}'
+  end: '{{ now() }}'
+  
+- platform: template
+  sensors:
+    gunsafebattery:
+      value_template: '{{ states.zwave.hank_hkzwdws01_doorwindow_sensor.attributes.battery_level }}'
+      unit_of_measurement: '%'
+      friendly_name: 'Gun Safe Sensor Battery'
+      device_class: battery
+    frontdoorbattery:
+      value_template: '{{ states.zwave.front_door_sensor.attributes.battery_level }}'
+      unit_of_measurement: '%'
+      friendly_name: 'Front Door Sensor Battery'
+      device_class: battery
+    frontdoorlockbattery:
+      value_template: '{{ states.zwave.kwikset_touchpad_electronic_deadbolt.attributes.battery_level }}'
+      unit_of_measurement: '%'
+      friendly_name: 'Front Door Lock Battery'
+      device_class: battery
+    sidedoorbattery:
+      value_template: '{{ states.zwave.vision_zd2102_eu_doorwindow_sensor.attributes.battery_level }}'
+      unit_of_measurement: '%'
+      friendly_name: 'Side Door Sensor Battery'
+      device_class: battery
+    hallbathmultisensorbattery:
+      value_template: '{{ states.zwave.bathroom_multisensor.attributes.battery_level }}'
+      unit_of_measurement: '%'
+      friendly_name: 'Hall Bath Multisensor Battery'
+      device_class: battery
+    sirenbattery:
+      value_template: '{{ states.zwave.everspring_se812_siren.attributes.battery_level }}'
+      unit_of_measurement: '%'
+      friendly_name: 'Siren Battery'
+      device_class: battery
+    hallsmokebattery:
+      value_template: '{{ states.zwave.first_alert_unknown_type0001_id0001.attributes.battery_level }}'
+      friendly_name: 'Hall Smoke Detector Battery'
+      unit_of_measurement: '%'
+      device_class: battery
+      

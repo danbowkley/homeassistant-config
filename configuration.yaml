@@ -1,0 +1,195 @@
+homeassistant:
+  name: Home
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  elevation: !secret home_elevation
+  unit_system: imperial
+  time_zone: America/Chicago
+  whitelist_external_dirs:
+    - /home/homeassistant/.homeassistant/
+  customize:  
+   climate.2gig_technologies_ct101_thermostat_iris_cooling_1:
+    friendly_name: Thermostat Cooling
+   climate.2gig_technologies_ct101_thermostat_iris_heating_1:     
+    friendly_name: Thermostat Heating
+   sensor.2gig_technologies_ct101_thermostat_iris_temperature:
+    friendly_name: Thermostat Temperature
+   switch.ge_45609_onoff_relay_switch_switch:
+    friendly_name: North Security Lights
+   switch.ge_45609_onoff_relay_switch_switch_2:
+    friendly_name: Front Porch Light
+   sensor.vision_zp3111_multisensor_4in1_relative_humidity:
+    device_class: humidity
+   binary_sensor.centralite_3326l_106cf116_1_1280:
+    friendly_name: Bonus Room Motion
+    device_class: motion
+   binary_sensor.centralite_3320l_1099e14b_1_1280:
+    friendly_name: Master Bedroom Door
+    device_class: door
+   sensor.centralite_3326l_106cf116_1_1026:
+    friendly_name: Bonus Room Temperature
+   sensor.centralite_3320l_1099e14b_1_1026:
+    friendly_name: Master Bedroom Door Temperature
+   sensor.server_average_fanspeed:
+    icon: mdi:fan
+   switch.ge_45609_onoff_relay_switch_switch_3:
+    icon: mdi:fan
+    friendly_name: Bathroom Fan
+   sensor.2gig_technologies_ct101_thermostat_iris_relative_humidity:
+    device_class: humidity
+    friendly_name: Thermostat Humidity
+   
+logbook:
+    
+shell_command:
+  getsnaps: /home/homeassistant/.homeassistant/getsnaps.sh
+  
+weather:
+  - platform: darksky
+    api_key: !secret darksky_api
+    name: Weather
+       
+recorder:
+  purge_keep_days: 365
+  db_url: !secret mysql_dburl
+  
+frontend:
+  javascript_version: latest
+  
+config:
+
+cloud:
+
+http:
+  api_password: !secret api-pw
+  base_url: !secret base-url
+  ssl_certificate: /home/homeassistant/fullchain.pem
+  ssl_key: /home/homeassistant/privkey.pem
+  trusted_networks: 192.168.1.0/24
+  ip_ban_enabled: true
+  login_attempts_threshold: 3
+  
+updater:
+  include_used_components: true
+
+discovery:
+
+conversation:
+
+history:
+
+sun:
+
+notify:
+  - name: email-dan
+    platform: smtp
+    server: !secret email_server
+    port: !secret email_port
+    encryption: starttls
+    timeout: 10
+    username: !secret email_username
+    password: !secret email_password
+    sender: !secret email_sender
+    sender_name: Home Assistant
+    recipient:
+      - !secret email_dan
+      - !secret email_dan_sms
+  - name: email-everyone
+    platform: smtp
+    server: !secret email_server
+    port: !secret email_port
+    encryption: starttls
+    timeout: 10
+    username: !secret email_username
+    password: !secret email_password
+    sender: !secret email_sender
+    sender_name: Home Assistant
+    recipient:
+      - !secret email_dan
+      - !secret email_dan_sms
+      - !secret email_karla
+      - !secret email_karla_sms
+      - !secret email_stephen
+      - !secret email_stephen_sms
+      - !secret email_ericjr
+      - !secret email_ericjr_sms
+      
+sensor:
+  !include sensors.yaml
+
+tts:
+  platform: google
+
+mqtt:
+  broker: 192.168.1.6
+  port: 1883
+  client_id: home-assistant
+  username: !secret mqtt_uname
+  password: !secret mqtt_pw
+  
+device_tracker:
+  - platform: owntracks
+    max_gps_accuracy: 500
+  - platform: unifi
+    host: !secret unifi_host
+    username: !secret unifi_username
+    password: !secret unifi_password
+             
+group:
+  !include groups.yaml
+
+automation: 
+  !include automations.yaml
+  
+zwave:
+  !include zwave_device_config.yaml
+
+zha:
+  usb_path: /dev/ttyUSB1
+  database_path: /home/homeassistant/.homeassistant/zigbee.db
+  
+camera:
+  - platform: uvc
+    nvr: 192.168.1.6
+    port: 7080
+    key: !secret uvc_key
+    password: !secret uvc_password
+  - platform: ffmpeg
+    name: Camera (Network Rack)
+    input: !secret rackcam_url
+  - platform: local_file
+    name: wximage
+    file_path: /home/danb/hurricam/wximage.jpg
+    
+input_boolean:
+  hvac_automation:
+    name: Automagic Thermostat
+    initial: on
+    icon: mdi:thermometer-lines
+  hvac_filter:
+    name: Change HVAC Filter
+    initial: off
+    icon: mdi:filter-variant
+    
+input_datetime:
+  hvac_filter_last_changed:
+    name: Filter Changed On
+    has_date: true
+    has_time: true
+    
+binary_sensor:
+  !include binarysensors.yaml
+
+alarm_control_panel:
+  - platform: manual
+    name: alarm
+    code: !secret alarm_code
+    pending_time: 10
+    delay_time: 0
+    trigger_time: 120
+    disarmed:
+      trigger_time: 0   
+    armed_home:
+      pending_time: 0
+      delay_time: 0
+      trigger_time: 120
