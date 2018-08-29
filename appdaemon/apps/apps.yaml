@@ -1,0 +1,9 @@
+tstat_magic:
+  module: tstatmagic
+  class: tstatmagic
+  heat_tstat: climate.2gig_technologies_ct101_thermostat_iris_heating_1
+  cool_tstat: climate.2gig_technologies_ct101_thermostat_iris_cooling_1
+  device_tracker: group.people
+  group_doorswindows: group.doorsandwindows
+  constrain_input_boolean: input_boolean.hvac_automation
+  outside_temp: sensor.dark_sky_temperature

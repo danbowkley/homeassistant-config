@@ -1,5 +1,14 @@
 *
 !*.yaml
 !.gitignore
+!zwcfg_0xe6891f3a.xml
+!.HA_VERSION
+!/appdaemon
+!/appdaemon/appdaemon.yaml
+!/appdaemon/apps
+!/appdaemon/apps/apps.yaml
+!/appdaemon/apps/tstatmagic.py
+ip_bans.yaml
 secrets.yaml
 known_devices.yaml
+

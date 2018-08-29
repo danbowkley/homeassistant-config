@@ -1,0 +1,11 @@
+log:
+  accessfile: /home/homeassistant/.homeassistant/appdaemon/logs/access.log
+  errorfile: /home/homeassistant/.homeassistant/appdaemon/logs/error.log
+  logfile: /home/homeassistant/.homeassistant/appdaemon/logs/appdaemon.log
+appdaemon:
+  threads: 10
+  plugins:
+    HASS:
+      type: hass
+      ha_url: !secret ha_url
+      ha_key: !secret api_pw
