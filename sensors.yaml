@@ -1,3 +1,6 @@
+- platform: noaa_tides
+  station_id: 8729210
+
 - platform: plex
   token: !secret plex_token
   

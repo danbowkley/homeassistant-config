@@ -7,6 +7,9 @@ homeassistant:
   time_zone: America/Chicago
   whitelist_external_dirs:
     - /home/homeassistant/.homeassistant/
+  auth_providers:
+    - type: homeassistant
+    - type: legacy_api_password  
   customize:  
    climate.2gig_technologies_ct101_thermostat_iris_cooling_1:
     friendly_name: Thermostat Cooling
@@ -113,6 +116,8 @@ notify:
       - !secret email_stephen_sms
       - !secret email_ericjr
       - !secret email_ericjr_sms
+media_player:
+  - platform: plex
       
 sensor:
   !include sensors.yaml

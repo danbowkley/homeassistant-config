@@ -4,7 +4,8 @@
     entities:
       - group.people
       - weather.weather
-
+      - sensor.noaa_tides
+      
   mediatab:
     name: Media
     view: yes

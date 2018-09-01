@@ -86,8 +86,8 @@ class tstatmagic(hass.Hass):
       self.adjust_cool_temp(self.unoccupied_cool_target)
    
   def change_openings(self,entity,attribute,old,new,kwargs):
-#    self.log("change_openings called, self.get_state_group_doorswindows returns {0}".format(self.get_state(self.args["group_doorswindows"])))
-    if self.get_state(self.args["group_doorswindows"]) == "open":
+    self.log("change_openings called, self.get_state_group_doorswindows returns {0}".format(self.get_state(self.args["group_doorswindows"])))
+    if self.get_state(self.args["group_doorswindows"]) == "on":
       self.log("Door or window open, setting thermostats to Off.")
       self.set_off()
     else:
