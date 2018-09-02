@@ -41,7 +41,19 @@ homeassistant:
    sensor.2gig_technologies_ct101_thermostat_iris_relative_humidity:
     device_class: humidity
     friendly_name: Thermostat Humidity
-   
+   sensor.page_count:
+    icon: mdi:image-filter-none
+   sensor.cyan_toner_level:
+    icon: mdi:water
+   sensor.yellow_toner_level:
+    icon: mdi:water
+   sensor.magenta_toner_level:
+    icon: mdi:water
+   sensor.black_toner_level:
+    icon: mdi:water
+    
+map:
+
 logbook:
     
 shell_command:

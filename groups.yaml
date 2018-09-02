@@ -39,6 +39,7 @@
       - group.server
       - group.internet
       - group.sensorbatteries
+      - group.printer
             
   cameratab:
     name: Cameras
@@ -53,6 +54,16 @@
     name: Google Home speakers
     entities:
       - media_player.master_bedroom_speaker
+
+  printer:
+    name: Printer Status
+    entities:
+      - sensor.printer_status_message
+      - sensor.page_count
+      - sensor.cyan_toner_level
+      - sensor.yellow_toner_level
+      - sensor.magenta_toner_level
+      - sensor.black_toner_level
       
   climate:
     name: Climate
