@@ -1,4 +1,5 @@
 *~
+.uuid
 /.cloud
 /.deps
 *.log
