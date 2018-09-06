@@ -1,3 +1,25 @@
+- id: '2549662193742'
+  alias: Download throughput monitoring
+  trigger:
+    platform: state
+    entity_id: sensor.router_wan_in
+  action:
+  - service: input_number.set_value
+    data_template:
+      entity_id: input_number.internet_traffic_delta_in
+      value: '{{ ((trigger.to_state.state | int - trigger.from_state.state | int) * 8 ) / ( as_timestamp(trigger.to_state.last_updated) - as_timestamp(trigger.from_state.last_updated) ) }}'
+
+- id: '2549662193942'
+  alias: Upload throughput monitoring
+  trigger:
+    platform: state
+    entity_id: sensor.router_wan_out
+  action:
+  - service: input_number.set_value
+    data_template:
+      entity_id: input_number.internet_traffic_delta_out
+      value: '{{ ((trigger.to_state.state | int - trigger.from_state.state | int) * 8 ) / ( as_timestamp(trigger.to_state.last_updated) - as_timestamp(trigger.from_state.last_updated) ) }}'
+
 - id: '1504390477853'
   alias: Porch light on at sunset
   trigger:

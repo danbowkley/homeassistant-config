@@ -148,6 +148,7 @@
       - sensor.plex
       - sensor.processor_use
       - sensor.disk_use_percent_
+      - sensor.disk_use_percent_mntbackups
       - sensor.memory_use_percent
       - sensor.server_average_fanspeed
       - sensor.hp_ilo_ambient_temp
@@ -159,6 +160,8 @@
   internet:
     name: Internet Connection
     entities:
+      - sensor.internet_speed_in
+      - sensor.internet_speed_out
       - sensor.speedtest_download
       - sensor.speedtest_upload
       - sensor.speedtest_ping

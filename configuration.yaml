@@ -133,6 +133,11 @@ notify:
       - !secret email_stephen_sms
       - !secret email_ericjr
       - !secret email_ericjr_sms
+  - name: push
+    platform: html5
+    gcm_api_key: !secret gcm_api_key
+    gcm_sender_id: !secret gcm_sender_id
+    
 media_player:
   - platform: plex
       
@@ -198,6 +203,14 @@ input_datetime:
     name: Filter Changed On
     has_date: true
     has_time: true
+
+input_number:
+  internet_traffic_delta_in:
+    min: 0
+    max: 1000000000000
+  internet_traffic_delta_out:
+    min: 0
+    max: 1000000000000
     
 binary_sensor:
   !include binarysensors.yaml
