@@ -1,6 +1,7 @@
 resources:
   - url: /local/alarm_control_panel-card.js?v=1
     type: js
+background: center / cover no-repeat url("/local/hass-background.png") fixed
 views:
   - title: Alarm Panel
     id: alarm

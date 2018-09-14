@@ -3,14 +3,15 @@
     view: yes
     entities:
       - group.people
-      - weather.weather
-      - sensor.noaa_tides
+      - group.weather
+      - group.critical_info
       
   mediatab:
     name: Media
     view: yes
     entities:
       - group.googlehome
+      - group.plex
                   
   securitytab:
     name: Safety & Security
@@ -55,8 +56,32 @@
     entities:
       - media_player.master_bedroom_speaker
 
+  critical_info:
+    name: At A Glance
+    control: hidden
+    entities:
+      - sensor.house_average_temperature
+      - group.doorsandwindows
+      - group.tampersensors
+      - group.motionsensors
+      - group.smoke
+  plex:
+    name: Plex Media Players
+    view: no
+    entities:
+      - media_player.unnamed_device_2
+      - media_player.unnamed_device_3
+      
+  weather:
+    name: Weather
+    entities:
+      - weather.weather
+      - camera.wximage
+      - sensor.noaa_tides
+      
   printer:
     name: Printer Status
+    control: hidden
     entities:
       - sensor.printer_status_message
       - sensor.tray1_status
@@ -68,16 +93,19 @@
       
   climate:
     name: Climate
+    control: hidden
     entities:
       - input_boolean.hvac_filter
       - input_boolean.hvac_automation
       - input_datetime.hvac_filter_last_changed
       - sensor.hvac_filter_time_used
+      - sensor.hvac_duty_cycle_24h
+#      - sensor.hvac_cost_30d
       - sensor.house_average_temperature
       - sensor.house_avg_temp_24h
       - sensor.dark_sky_temperature
       - sensor.2gig_technologies_ct101_thermostat_iris_temperature
-      - sensor.2gig_technologies_ct101_thermostat_iris_relative_humidity
+#      - sensor.2gig_technologies_ct101_thermostat_iris_relative_humidity
       - climate.2gig_technologies_ct101_thermostat_iris_cooling_1
       - climate.2gig_technologies_ct101_thermostat_iris_heating_1
       - sensor.vision_zp3111_multisensor_4in1_temperature
@@ -103,33 +131,39 @@
       
   doorsandwindows:
     name: Doors and Windows
+    control: hidden
     entities:
       - group.doors
       - group.windows
       
   doors:
     name: Exterior Doors
+    control: hidden
     entities:
       - binary_sensor.fdstatus
       - binary_sensor.sdstatus
       
   insidedoors:
     name: Interior Doors
+    control: hidden
     entities:      
       - binary_sensor.gunsafestatus
       - binary_sensor.centralite_3320l_1099e14b_1_1280
       
   windows:
     name: Window Sensors
+    control: hidden
 
   motionsensors:
     name: Motion Sensors
+    control: hidden
     entities:
       - binary_sensor.hallbath_motion
       - binary_sensor.centralite_3326l_106cf116_1_1280
       
   tampersensors:
     name: Tamper Sensors
+    control: hidden
     entities:
       - binary_sensor.gunsafetamper
       - binary_sensor.hallbathmultisensortamper
@@ -144,6 +178,7 @@
       
   server:
     name: HA Server
+    control: hidden
     entities:
       - sensor.plex
       - sensor.processor_use
@@ -159,7 +194,9 @@
 
   internet:
     name: Internet Connection
+    control: hidden
     entities:
+      - sensor.average_download_throughput_24h
       - sensor.internet_speed_in
       - sensor.internet_speed_out
       - sensor.speedtest_download
@@ -170,6 +207,7 @@
 
   smoke:
     name: Smoke Detectors
+    control: hidden
     entities:
       - binary_sensor.hallsmoke
       
@@ -180,6 +218,7 @@
 
   sensorbatteries:
     name: Sensor Battery Monitor
+    control: hidden
     entities:
     - sensor.gunsafebattery
     - sensor.frontdoorbattery

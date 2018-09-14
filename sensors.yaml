@@ -149,8 +149,8 @@
   server_id: 16618
   minute:
     - 7
-    - 27
-    - 47
+#    - 27
+#    - 47
   monitored_conditions:
     - ping
     - download
@@ -209,7 +209,21 @@
              ) avgs;
     column: 'value'
     unit_of_measurement: '°F'
-
+  - name: Average Download Throughput 24h
+    query: >
+             SELECT ROUND(AVG(avg_throughput),2) 'value'
+             FROM (
+               SELECT AVG(state) AS avg_throughput
+               FROM hass.states
+               WHERE entity_id = 'sensor.internet_speed_in'
+               AND state != 'unknown'
+               AND state != ''
+               AND created > NOW() - INTERVAL 1 DAY
+               GROUP BY DATE(created)
+             ) avgs;
+    column: 'value'
+    unit_of_measurement: 'Mbit/s'
+    
 - platform: min_max
   entity_ids:
     - sensor.hp_ilo_fan1speed
@@ -238,6 +252,15 @@
   state: 'on'
   type: time
   start: '{{ states.input_datetime.hvac_filter_last_changed.attributes.timestamp }}'
+  end: '{{ now() }}'
+
+- platform: history_stats
+  name: HVAC Duty Cycle 24h
+  entity_id: binary_sensor.hvacfan
+  state: 'on'
+  type: ratio
+  duration:
+    hours: 24
   end: '{{ now() }}'
   
 - platform: template
@@ -299,8 +322,8 @@
     internet_speed_in:
       friendly_name: 'Internet Throughput (down)'
       value_template: '{{ ((states.input_number.internet_traffic_delta_in.state | float ) / 1000000 ) | round(2) }}'
-      unit_of_measurement: 'Mbps'
+      unit_of_measurement: 'Mbit/s'
     internet_speed_out:
       friendly_name: 'Internet Throughput (up)'
       value_template: '{{ ((states.input_number.internet_traffic_delta_out.state | float ) / 1000000 ) | round(2) }}'
-      unit_of_measurement: 'Mbps'
+      unit_of_measurement: 'Mbit/s'

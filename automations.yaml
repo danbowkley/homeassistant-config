@@ -1,3 +1,16 @@
+- id: '7734628568734'
+  alias: Go to work you lazy bitch
+  trigger:
+    platform: state
+    entity_id: device_tracker.stephens_xboxone_wireless
+    to: 'home'
+    for:
+      hours: 5
+  action:
+  - service: tts.google_say
+    data:
+      message: 'Stephen, go to work you lazy bitch.'
+      
 - id: '2549662193742'
   alias: Download throughput monitoring
   trigger:
@@ -202,6 +215,10 @@
   action:
     - service: homeassistant.turn_off
       entity_id: switch.ge_45609_onoff_relay_switch_switch_3
+    - service: homeassistant.turn_off
+      entity_id: switch.ge_45609_onoff_relay_switch_switch_3
+    - service: homeassistant.turn_off
+      entity_id: switch.ge_45609_onoff_relay_switch_switch_3
 
 
 - id: '2345677453356'
@@ -211,6 +228,10 @@
       entity_id: sensor.vision_zp3111_multisensor_4in1_relative_humidity
       above: 65
   action:
+    - service: homeassistant.turn_on
+      entity_id: switch.ge_45609_onoff_relay_switch_switch_3
+    - service: homeassistant.turn_on
+      entity_id: switch.ge_45609_onoff_relay_switch_switch_3
     - service: homeassistant.turn_on
       entity_id: switch.ge_45609_onoff_relay_switch_switch_3
 

@@ -25,3 +25,6 @@ zigbee.db
 /www/snapshots
 /www/*png
 /www/sounds/*
+dbpasswd
+dumped.db
+zwxfg_*
