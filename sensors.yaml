@@ -1,6 +1,12 @@
 # Xerox printer status
 - platform: snmp
-  name: 'printer_status_message'
+  name: 'prncplmsg'
+  host: !secret xerox_printer_ip
+  baseoid: 1.3.6.1.2.1.43.16.5.1.2.1.1
+  accept_errors: true
+  
+- platform: snmp
+  name: 'prnstatmsg'
   host: !secret xerox_printer_ip
   baseoid: 1.3.6.1.2.1.43.18.1.1.8.1.1
   accept_errors: true
@@ -265,6 +271,17 @@
   
 - platform: template
   sensors:
+    printer_status_message:
+      value_template: >-
+        {% if is_state("sensor.prncplmsg","Ready") %}
+          Ready to print
+        {% elif is_state("sensor.prnstatmsg","Ready/Standby") %}
+          Standby
+        {% elif is_state("sensor.prncplmsg", "") and is_state("sensor.prnstatmsg", "") %}
+          Printing
+        {% else %}
+          Error
+        {% endif %}        
     tray1_status:
       friendly_name: 'Paper Tray 1 status'
       value_template: '{% if is_state("sensor.prntray1sheetsremaining", "0") %}Out of paper{% else %}OK{% endif %}'
@@ -327,3 +344,7 @@
       friendly_name: 'Internet Throughput (up)'
       value_template: '{{ ((states.input_number.internet_traffic_delta_out.state | float ) / 1000000 ) | round(2) }}'
       unit_of_measurement: 'Mbit/s'
+    days_until_filter_change:
+      friendly_name: 'Days until HVAC filter change'
+      value_template: '{{ (((500 - (states.sensor.hvac_filter_time_used.state | float)) / ((states.sensor.hvac_duty_cycle_24h.state | float)/100)) / 24) | round(1) }}'
+      unit_of_measurement: 'Days'

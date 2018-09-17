@@ -8,9 +8,11 @@ sensor.2gig_technologies_ct101_thermostat_iris_temperature:
   friendly_name: Thermostat Temperature
 
 switch.ge_45609_onoff_relay_switch_switch:
+  icon: mdi:lightbulb
   friendly_name: North Security Lights
 
 switch.ge_45609_onoff_relay_switch_switch_2:
+  icon: mdi:lightbulb
   friendly_name: Front Porch Light
 
 sensor.vision_zp3111_multisensor_4in1_relative_humidity:

@@ -1,15 +1,243 @@
 resources:
   - url: /local/alarm_control_panel-card.js?v=1
     type: js
-background: center / cover no-repeat url("/local/hass-background.png") fixed
+background: center / cover no-repeat url("/local/Good-Morning-Destin.jpg") fixed
 views:
-  - title: Alarm Panel
-    id: alarm
+  - icon: mdi:home
+    title: home
+    id: home
+    panel: true
     cards:
-    - type: custom:alarm_control_panel-card  
-      entity: alarm_control_panel.alarm  
-      title: My Alarm  
-      force_keypad: true
-      states:
-        - arm_home
-        - arm_away
+      - type: picture-elements
+        image: /local/sm-floorplan2.png
+        elements:
+          - type: state-icon
+            entity: switch.ge_45609_onoff_relay_switch_switch_2
+            tap_action: toggle
+            style:
+              top: 88%
+              left: 42%
+          - type: state-icon
+            entity: switch.ge_45609_onoff_relay_switch_switch
+            tap_action: toggle
+            style:
+              top: 35%
+              left: 9%    
+          - type: state-badge
+            entity: camera.camera_network_rack
+            style:
+              top: 20%
+              left: 20%
+          - type: state-badge
+            entity: camera.side_door
+            style:
+              top: 47%
+              left: 7%
+          - type: state-badge
+            entity: camera.driveway
+            style:
+              top: 90%
+              left: 20%
+          - type: state-badge
+            entity: camera.living_room
+            style:
+              top: 46%
+              left: 48%
+          - type: state-badge
+            entity: sensor.vision_zp3111_multisensor_4in1_temperature
+            style:
+              top: 29%
+              left: 63%
+          - type: state-badge
+            entity: sensor.vision_zp3111_multisensor_4in1_relative_humidity 
+            style:
+              top: 29%
+              left: 68%
+          - type: state-icon
+            entity: binary_sensor.hallbath_motion
+            style:
+              top: 36%
+              left: 63%
+              
+              
+              
+  - icon: mdi:clock-fast  
+    title: Quick View
+    id: quickview
+    cards:
+      - type: entities
+        title: People
+        entities:
+          - device_tracker.hass_pixel2xl
+          - device_tracker.karlas_phone
+          - device_tracker.stephens_s8
+          - device_tracker.karls_phone
+          - device_tracker.hass_ericjr
+      - type: custom:alarm_control_panel-card  
+        entity: alarm_control_panel.alarm  
+        title: My Alarm  
+        force_keypad: true
+        states:
+          - arm_home
+          - arm_away
+      - type: weather-forecast
+        entity: weather.weather
+      - type: entities
+        title: Tides and Storms
+        entities:
+          - sensor.noaa_tides
+          - sensor.dark_sky_nearest_storm_distance
+      - type: picture-entity
+        entity: camera.wximage
+        name: Satellite Composite
+      - type: entities
+        title: At a Glance
+        entities:
+          - sensor.house_average_temperature
+          - group.doorsandwindows
+          - group.tampersensors
+          - group.motionsensors
+          - group.smoke
+
+  - icon: mdi:security
+    title: security
+    id: security
+    cards:
+      - type: entities
+        title: Door Locks
+        entities:
+          - lock.locked
+      - type: entities
+        title: Outside Doors
+        entities:
+          - binary_sensor.fdstatus
+          - binary_sensor.sdstatus          
+      - type: entities
+        title: Inside Doors
+        entities:
+          - binary_sensor.gunsafestatus
+          - binary_sensor.centralite_3320l_1099e14b_1_1280
+      - type: entities
+        title: Motion Sensors
+        entities:
+          - binary_sensor.hallbath_motion
+          - binary_sensor.centralite_3326l_106cf116_1_1280
+      - type: entities
+        title: Smoke Detectors
+        entities:
+          - binary_sensor.hallsmoke
+      - type: entities
+        title: Outside Lights
+        entities:
+          - switch.ge_45609_onoff_relay_switch_switch
+          - switch.ge_45609_onoff_relay_switch_switch_2          
+      - type: entities
+        title: Tamper Sensors
+        entities:
+          - binary_sensor.gunsafetamper
+          - binary_sensor.hallbathmultisensortamper
+          - binary_sensor.frontdoortamper
+          - binary_sensor.sidedoortamper         
+      - type: picture-entity
+        entity: camera.camera_network_rack
+      - type: picture-entity
+        entity: camera.driveway
+      - type: picture-entity
+        entity: camera.side_door
+      - type: picture-entity
+        entity: camera.living_room      
+        
+  - icon: mdi:air-conditioner
+    title: Climate
+    id: climate
+    cards:
+      - type: entities
+        title: HVAC System
+        show_header_toggle: false
+        entities:
+          - input_boolean.hvac_filter
+          - input_boolean.hvac_automation
+          - sensor.days_until_filter_change
+          - input_datetime.hvac_filter_last_changed
+#          - sensor.hvac_filter_time_used
+#          - sensor.hvac_duty_cycle_24h
+#          - sensor.hvac_cost_30d
+          - climate.2gig_technologies_ct101_thermostat_iris_cooling_1
+          - climate.2gig_technologies_ct101_thermostat_iris_heating_1
+#          - binary_sensor.hvacfan
+          - switch.ge_45609_onoff_relay_switch_switch_3
+      - type: entities
+        title: Temperature and Humidity Sensors
+        show_header_toggle: false
+        entities:
+          - sensor.dark_sky_temperature
+          - type: divider
+          - sensor.house_average_temperature
+          - sensor.house_avg_temp_24h
+          - type: divider
+          - sensor.vision_zp3111_multisensor_4in1_temperature
+          - sensor.centralite_3320l_1099e14b_1_1026
+          - sensor.centralite_3326l_106cf116_1_1026
+          - sensor.2gig_technologies_ct101_thermostat_iris_temperature
+          - type: divider
+          - sensor.vision_zp3111_multisensor_4in1_relative_humidity
+#          - sensor.2gig_technologies_ct101_thermostat_iris_relative_humidity
+
+  - icon: mdi:ticket
+    title: Media Players
+    id: mediaplayers
+    cards:
+      - type: media-control
+        entity: media_player.master_bedroom_speaker
+
+  - icon: mdi:desktop-classic
+    title: System
+    id: system
+    cards:
+      - type: entities
+        title: Printer
+        entities:
+          - sensor.printer_status_message
+          - sensor.tray1_status
+          - sensor.page_count
+          - sensor.cyan_toner_level
+          - sensor.yellow_toner_level
+          - sensor.magenta_toner_level
+          - sensor.black_toner_level
+      - type: entities
+        title: Server
+        entities:
+          - sensor.processor_use
+          - sensor.disk_use_percent_
+          - sensor.disk_use_percent_mntbackups
+          - sensor.memory_use_percent
+          - sensor.hass_db_size
+          - type: divider
+          - sensor.plex
+          - type: divider
+          - sensor.server_average_fanspeed
+          - sensor.hp_ilo_ambient_temp
+          - sensor.hp_ilo_system_temp
+          - sensor.hp_ilo_cpu_1_temp
+          - sensor.hp_ilo_cpu_2_temp
+      - type: entities
+        title: Internet
+        entities:
+          - sensor.average_download_throughput_24h
+          - sensor.internet_speed_in
+          - sensor.internet_speed_out
+          - sensor.speedtest_download
+          - sensor.speedtest_upload
+          - sensor.speedtest_ping
+          - sensor.7_day_average_download_speed
+          - sensor.30_day_average_download_speed
+      - type: entities
+        title: Sensor Batteries
+        entities:
+          - sensor.gunsafebattery
+          - sensor.frontdoorbattery
+          - sensor.frontdoorlockbattery
+          - sensor.sidedoorbattery
+          - sensor.hallbathmultisensorbattery
+          - sensor.sirenbattery
+          - sensor.hallsmokebattery

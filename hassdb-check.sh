@@ -1,14 +1,14 @@
 #!/bin/bash
 echo Stopping Home Assistant...
-service home-assistant@homeassistant stop
+sudo service home-assistant@homeassistant stop
 echo Backing up database...
-mysqldump -u hassuser -pEp8nLKd9RJ3z6lRM --create-options --routines --triggers hass > /mnt/backups/Dan/hass-backup/db.dmp
+mysqldump --login-path hass --create-options --routines --triggers hass > /mnt/backups/Dan/hass-backup/db.dmp
 echo Checking database...
-mysqlcheck -u hassuser -pEp8nLKd9RJ3z6lRM --check --databases hass
+mysqlcheck --login-path hass --check --databases hass
 echo Backing up database...
-mysqlcheck -u hassuser -pEp8nLKd9RJ3z6lRM --optimize --databases hass
+mysqlcheck --login-path hass --optimize --databases hass
 echo Starting Home Assistant...
-service home-assistant@homeassistant start
+sudo service home-assistant@homeassistant start
 echo Copying all files to backup directory...
 cp -R /home/homeassistant/.homeassistant/* /mnt/backups/Dan/hass-backup/
 echo Done!

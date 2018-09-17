@@ -1,3 +1,81 @@
+- id: '7751679368942'
+  alias: disarm alarm and unlock front door when someone gets home
+  trigger:
+    - platform: state
+      entity_id: device_tracker.dans_watch
+      to: 'home'
+    - platform: state
+      entity_id: device_tracker.hass_pixel2xl
+      to: 'home'
+    - platform: state
+      entity_id: device_tracker.karlas_phone
+      to: 'home'
+    - platform: state
+      entity_id: device_tracker.stephens_s8
+      to: 'home'
+  action:
+    - service: lock.unlock
+      data:
+        entity_id: lock.locked
+    - service: alarm_control_panel.alarm_disarm
+      data:
+        entity_id: alarm_control_panel.alarm
+        code: !secret alarm_code
+
+- id: '4576734257853'
+  alias: Send notification when less than 7 days until filter change
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.days_until_filter_change
+      below: 7
+  action:
+    - service: notify.email_everyone
+      data:
+        title: "HVAC filter will need to be changed soon"
+        message: "This is an automated message from Home Assistant. The furnace filter will need to be replaced in the next week or so. Please ensure that there is a 12x24x1 MERV 11 replacement filter on hand. If there isn't, please go purchase one soon. Thank you!"
+
+- id: '4564234567532'
+  alias: Send notification when HVAC filter has reached EOL
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.hvac_filter_time_used
+    above: 500
+  action:
+    - service: notify.email_everyone
+      data:
+        title: "HVAC filter needs to be changed"
+        message: "This is an automated message from Home Assistant. The furnace filter has reached end-of-life and needs to be changed. Please replace it with a new 12x24x1 MERV 11 filter today. Thank you!"
+
+- id: '3785739476833'
+  alias: Send notification when a sensor battery is low
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.gunsafebattery
+      below: 20
+    - platform: numeric_state
+      entity_id: sensor.frontdoorbattery
+      below: 20
+    - platform: numeric_state
+      entity_id: sensor.frontdoorlockbattery
+      below: 20
+    - platform: numeric_state
+      entity_id: sensor.sidedoorbattery
+      below: 20
+    - platform: numeric_state
+      entity_id: sensor.hallbathmultisensorbattery
+      below: 20
+    - platform: numeric_state
+      entity_id: sensor.sirenbattery
+      below: 20
+    - platform: numeric_state
+      entity_id: sensor.hallsmokebattery
+      below: 20
+  action:
+    - service: notify.email_everyone
+      data_template:
+        title: "A sensor battery is low and needs to be replaced"
+        message: "The {{ trigger.to_state.attributes.friendly_name | lower }} is low. Please replace it today."
+    
 - id: '7734628568734'
   alias: Go to work you lazy bitch
   trigger:
@@ -47,7 +125,6 @@
   trigger:
   - event: sunrise
     platform: sun
-  condition: []
   action:
     service: switch.turn_off
     entity_id:
@@ -64,7 +141,7 @@
     weekday:
       - mon
   action:
-    - service: notify.emaileveryone
+    - service: notify.email_everyone
       data:
         title: Trash Day
         message: This is an automated message from Home Assistant to remind you to please take the trash out to the curb today. Thank you!
@@ -79,7 +156,7 @@
     weekday:
       - thu
   action:
-    - service: notify.emaileveryone
+    - service: notify.email_everyone
       data:
         title: Recycling Day
         message: This is an automated message from Home Assistant to remind you to please take the recycling out to the curb today. Thank you!
@@ -146,7 +223,7 @@
       to: triggered
   action:
     - service: shell_command.getsnaps
-    - service: notify.emaileveryone
+    - service: notify.email_everyone
       data:
         title: ALARM SYSTEM TRIGGERED
         message: ATTENTION!! The alarm system has been triggered.
@@ -155,7 +232,6 @@
           - /home/homeassistant/.homeassistant/www/snapshots/driveway.jpg
           - /home/homeassistant/.homeassistant/www/snapshots/livingroom.jpg
           - /home/homeassistant/.homeassistant/www/snapshots/sidedoor.jpg
-          - /home/homeassistant/.homeassistant/www/snapshots/server.jpg
         
 - id: '1533860122074'
   alias: Disarm alarm when deadbolt unlocked
@@ -165,6 +241,10 @@
       to: '22'
   action:
     - service: alarm_control_panel.alarm_disarm
+      data:
+        entity_id: alarm_control_panel.alarm
+        code: !secret alarm_code
+      
   
 - id: '1589429602672'
   alias: Silence sirens when alarm is disarmed or rearmed
@@ -258,7 +338,7 @@
       entity_id: sensor.hvac_filter_time_used
       above: 500
   action:
-    - service: notify.emaileveryone
+    - service: notify.email_everyone
       data:
         title: HVAC Filter needs to be changed
         message: Please replace the HVAC filter and let Dan know when you have done so. Thank you!

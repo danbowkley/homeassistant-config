@@ -12,6 +12,8 @@ homeassistant:
     - type: legacy_api_password  
   customize: !include customize.yaml
 
+config:
+
 map:
 
 logbook:
@@ -40,8 +42,17 @@ recorder:
   
 frontend:
   javascript_version: latest
-  
-config:
+
+media_player:
+  - platform: plex
+    entity_namespace: plex
+    include_non_clients: false
+    scan_interval: 5
+    show_all_controls: false
+    use_custom_entity_ids: true
+    use_episode_art: false
+    remove_unavailable_clients: true
+    client_remove_interval: 600
 
 cloud:
 
@@ -66,7 +77,7 @@ history: !include history.yaml
 sun:
 
 notify:
-  - name: email-dan
+  - name: email_dan
     platform: smtp
     server: !secret email_server
     port: !secret email_port
@@ -79,7 +90,7 @@ notify:
     recipient:
       - !secret email_dan
       - !secret email_dan_sms
-  - name: email-everyone
+  - name: email_everyone
     platform: smtp
     server: !secret email_server
     port: !secret email_port
@@ -103,9 +114,6 @@ notify:
     gcm_api_key: !secret gcm_api_key
     gcm_sender_id: !secret gcm_sender_id
     
-media_player:
-  - platform: plex
-      
 sensor:
   !include sensors.yaml
 
@@ -126,7 +134,7 @@ device_tracker:
     host: !secret unifi_host
     username: !secret unifi_username
     password: !secret unifi_password
-             
+            
 group:
   !include groups.yaml
 
