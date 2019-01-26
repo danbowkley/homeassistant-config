@@ -1,17 +1,22 @@
+- id: '6661873869246'
+  alias: Annoy Stephen when he's been on his XBox too long
+  trigger:
+    - platform: state
+      entity_id: device_tracker.stephens_xboxone_wireless
+      to: 'home'
+      for:
+        hours: 4
+  action:
+    - service: notify.email_residents
+      data:
+        title: 'STEPHEN! GO TO WORK!'
+        message: 'Seriously dude, you have been on that fucking XBox for four goddamn hours. Get up off your lazy fucking ass and GO THE FUCK TO WORK!!!'
+
 - id: '7751679368942'
   alias: disarm alarm and unlock front door when someone gets home
   trigger:
     - platform: state
-      entity_id: device_tracker.dans_watch
-      to: 'home'
-    - platform: state
-      entity_id: device_tracker.hass_pixel2xl
-      to: 'home'
-    - platform: state
-      entity_id: device_tracker.karlas_phone
-      to: 'home'
-    - platform: state
-      entity_id: device_tracker.stephens_s8
+      entity_id: group.people
       to: 'home'
   action:
     - service: lock.unlock
@@ -22,6 +27,21 @@
         entity_id: alarm_control_panel.alarm
         code: !secret alarm_code
 
+- id: '6773927677025'
+  alias: arm alarm and lock doors when everyone has left
+  trigger:
+    - platform: state
+      entity_id: group.people
+      to: 'not_home'
+  action:
+    - service: lock.lock
+      data:
+        entity_id: group.locks
+    - service: alarm_control_panel.alarm_arm_home
+      data:
+        entity_id: alarm_control_panel.alarm
+        code: !secret alarm_code
+        
 - id: '4576734257853'
   alias: Send notification when less than 7 days until filter change
   trigger:
@@ -29,7 +49,7 @@
       entity_id: sensor.days_until_filter_change
       below: 7
   action:
-    - service: notify.email_everyone
+    - service: notify.email_residents
       data:
         title: "HVAC filter will need to be changed soon"
         message: "This is an automated message from Home Assistant. The furnace filter will need to be replaced in the next week or so. Please ensure that there is a 12x24x1 MERV 11 replacement filter on hand. If there isn't, please go purchase one soon. Thank you!"
@@ -39,9 +59,9 @@
   trigger:
     platform: numeric_state
     entity_id: sensor.hvac_filter_time_used
-    above: 500
+    above: 300
   action:
-    - service: notify.email_everyone
+    - service: notify.email_residents
       data:
         title: "HVAC filter needs to be changed"
         message: "This is an automated message from Home Assistant. The furnace filter has reached end-of-life and needs to be changed. Please replace it with a new 12x24x1 MERV 11 filter today. Thank you!"
@@ -71,23 +91,10 @@
       entity_id: sensor.hallsmokebattery
       below: 20
   action:
-    - service: notify.email_everyone
+    - service: notify.email_residents
       data_template:
         title: "A sensor battery is low and needs to be replaced"
         message: "The {{ trigger.to_state.attributes.friendly_name | lower }} is low. Please replace it today."
-    
-- id: '7734628568734'
-  alias: Go to work you lazy bitch
-  trigger:
-    platform: state
-    entity_id: device_tracker.stephens_xboxone_wireless
-    to: 'home'
-    for:
-      hours: 5
-  action:
-  - service: tts.google_say
-    data:
-      message: 'Stephen, go to work you lazy bitch.'
       
 - id: '2549662193742'
   alias: Download throughput monitoring
@@ -141,7 +148,7 @@
     weekday:
       - mon
   action:
-    - service: notify.email_everyone
+    - service: notify.email_residents
       data:
         title: Trash Day
         message: This is an automated message from Home Assistant to remind you to please take the trash out to the curb today. Thank you!
@@ -156,7 +163,7 @@
     weekday:
       - thu
   action:
-    - service: notify.email_everyone
+    - service: notify.email_residents
       data:
         title: Recycling Day
         message: This is an automated message from Home Assistant to remind you to please take the recycling out to the curb today. Thank you!
@@ -222,8 +229,12 @@
       entity_id: alarm_control_panel.alarm
       to: triggered
   action:
+#    -service: camera.snapshot
+#     data:
+#       entity_id: camera.living_room
+#       filename: "/home/homeassistant/.homeassistant/snapshots/lr1.jpg"
     - service: shell_command.getsnaps
-    - service: notify.email_everyone
+    - service: notify.email_residents
       data:
         title: ALARM SYSTEM TRIGGERED
         message: ATTENTION!! The alarm system has been triggered.
@@ -330,15 +341,3 @@
     - service: input_boolean.turn_off
       data:
         entity_id: input_boolean.hvac_filter
-
-- id: '5673058619573'
-  alias: Reminder to Change HVAC Filter
-  trigger:
-    - platform: numeric_state
-      entity_id: sensor.hvac_filter_time_used
-      above: 500
-  action:
-    - service: notify.email_everyone
-      data:
-        title: HVAC Filter needs to be changed
-        message: Please replace the HVAC filter and let Dan know when you have done so. Thank you!

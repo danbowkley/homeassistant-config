@@ -1,56 +1,3 @@
-  default_view:
-    name: Home
-    view: yes
-    entities:
-      - group.people
-      - group.weather
-      - group.critical_info
-      
-  mediatab:
-    name: Media
-    view: yes
-    entities:
-      - group.googlehome
-      - group.plex
-                  
-  securitytab:
-    name: Safety & Security
-    view: yes
-    entities:
-      - group.alarm
-      - group.smoke
-      - group.locks
-      - group.doors
-      - group.insidedoors
-      - group.windows
-      - group.motionsensors
-      - group.outseclts
-      - group.tampersensors
-      
-  climatetab:
-    name: Climate
-    view: yes
-    entities:
-      - group.climate
-
-  systemtab:
-    name: System Health
-    view: yes
-    entities:
-      - group.server
-      - group.internet
-      - group.sensorbatteries
-      - group.printer
-            
-  cameratab:
-    name: Cameras
-    view: yes
-    entities:
-      - camera.camera_network_rack
-      - camera.driveway
-      - camera.side_door
-      - camera.living_room
-
   googlehome:
     name: Google Home speakers
     entities:
@@ -105,7 +52,7 @@
       - sensor.house_avg_temp_24h
       - sensor.dark_sky_temperature
       - sensor.2gig_technologies_ct101_thermostat_iris_temperature
-#      - sensor.2gig_technologies_ct101_thermostat_iris_relative_humidity
+      - sensor.2gig_technologies_ct101_thermostat_iris_relative_humidity
       - climate.2gig_technologies_ct101_thermostat_iris_cooling_1
       - climate.2gig_technologies_ct101_thermostat_iris_heating_1
       - sensor.vision_zp3111_multisensor_4in1_temperature
@@ -118,11 +65,27 @@
   people:
     name: People
     entities:
-      - device_tracker.hass_pixel2xl
-      - device_tracker.stephens_s8
-      - device_tracker.hass_ericjr
-      - device_tracker.karlas_phone
-      - device_tracker.karls_phone
+      - device_tracker.google_maps_109984549047371398743 #dan
+      - device_tracker.google_maps_109585893024521841407 #stephen
+      - device_tracker.google_maps_112651824816852593437 #karla
+      - device_tracker.google_maps_107433577949060247627 #karl
+      - device_tracker.google_maps_106390694792046678454 #rainne
+      - device_tracker.google_maps_112049465177067192481 #new eric jr
+
+  residents:
+    name: residents
+    entities:
+      - device_tracker.google_maps_109984549047371398743 #dan
+      - device_tracker.google_maps_112651824816852593437 #karla
+      - device_tracker.google_maps_109585893024521841407 #stephen
+      - device_tracker.google_maps_112049465177067192481 #new eric jr
+    
+  guests:
+    name: guests
+    entities:
+      - device_tracker.google_maps_107433577949060247627 #karl
+      - device_tracker.google_maps_106390694792046678454 #rainne
+
       
   locks:    
     name: Door Locks
@@ -130,29 +93,29 @@
       - lock.locked
       
   doorsandwindows:
+    view: false
     name: Doors and Windows
-    control: hidden
     entities:
       - group.doors
       - group.windows
       
   doors:
     name: Exterior Doors
-    control: hidden
+    view: false
     entities:
       - binary_sensor.fdstatus
       - binary_sensor.sdstatus
       
   insidedoors:
     name: Interior Doors
-    control: hidden
+    view: false
     entities:      
       - binary_sensor.gunsafestatus
       - binary_sensor.centralite_3320l_1099e14b_1_1280
       
   windows:
     name: Window Sensors
-    control: hidden
+    view: false
 
   motionsensors:
     name: Motion Sensors
@@ -182,7 +145,7 @@
     entities:
       - sensor.plex
       - sensor.processor_use
-      - sensor.disk_use_percent_
+      - sensor.disk_use_percent
       - sensor.disk_use_percent_mntbackups
       - sensor.memory_use_percent
       - sensor.server_average_fanspeed
@@ -199,11 +162,6 @@
       - sensor.average_download_throughput_24h
       - sensor.internet_speed_in
       - sensor.internet_speed_out
-      - sensor.speedtest_download
-      - sensor.speedtest_upload
-      - sensor.speedtest_ping
-      - sensor.7_day_average_download_speed
-      - sensor.30_day_average_download_speed
 
   smoke:
     name: Smoke Detectors

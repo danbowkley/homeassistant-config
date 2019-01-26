@@ -8,7 +8,8 @@ views:
     id: home
     panel: true
     cards:
-      - type: picture-elements
+      - id: 429f062f65194d5ea25bb108b8ad8c8c  # Automatically created id
+        type: picture-elements
         image: /local/sm-floorplan2.png
         elements:
           - type: state-icon
@@ -22,7 +23,7 @@ views:
             tap_action: toggle
             style:
               top: 35%
-              left: 9%    
+              left: 9%
           - type: state-badge
             entity: camera.camera_network_rack
             style:
@@ -46,51 +47,113 @@ views:
           - type: state-badge
             entity: sensor.vision_zp3111_multisensor_4in1_temperature
             style:
-              top: 29%
-              left: 63%
+              top: 28.5%
+              left: 62%
           - type: state-badge
-            entity: sensor.vision_zp3111_multisensor_4in1_relative_humidity 
+            entity: sensor.vision_zp3111_multisensor_4in1_relative_humidity
             style:
-              top: 29%
-              left: 68%
+              top: 28.5%
+              left: 65.5%
+          - type: state-badge
+            entity: sensor.vision_zp3111_multisensor_4in1_luminance
+            style:
+              top: 28.5%
+              left: 69%
           - type: state-icon
             entity: binary_sensor.hallbath_motion
             style:
               top: 36%
               left: 63%
-              
-              
-              
-  - icon: mdi:clock-fast  
+          - type: state-icon
+            entity: binary_sensor.centralite_3326l_106cf116_1_1280
+            style:
+              top: 47%
+              left: 20%
+          - type: state-badge
+            entity: sensor.hp_ilo_ambient_temp
+            style:
+              top: 20%
+              left: 15%
+          - type: state-icon
+            entity: binary_sensor.hallsmoke
+            style:
+              top: 47%
+              left: 55%
+          - type: state-badge
+            entity: sensor.centralite_3326l_106cf116_1_1026
+            style:
+              top: 40%
+              left: 24%
+          - type: state-badge
+            entity: sensor.2gig_technologies_ct101_thermostat_iris_temperature
+            style:
+              top: 50%
+              left: 60%
+          - type: state-badge
+            entity: sensor.2gig_technologies_ct101_thermostat_iris_humidity35
+            style:
+              top: 50%
+              left: 63.5%
+          - type: state-icon
+            entity: binary_sensor.fdstatus
+            style:
+              top: 82%
+              left: 45.3%
+          - type: state-icon
+            entity: binary_sensor.sdstatus
+            style:
+              top: 40%
+              left: 12%
+          - type: state-icon
+            entity: binary_sensor.centralite_3320l_1099e14b_1_1280
+            style:
+              top: 42%
+              left: 75%
+          - type: state-badge
+            entity: sensor.centralite_3320l_1099e14b_1_1026
+            style:
+              top: 40%
+              left: 80%
+
+  - icon: mdi:clock-fast
     title: Quick View
     id: quickview
     cards:
-      - type: entities
+      - id: 3e634c15b03547e3a8600941d18025c1  # Automatically created id
+        type: entities
         title: People
         entities:
-          - device_tracker.hass_pixel2xl
-          - device_tracker.karlas_phone
-          - device_tracker.stephens_s8
-          - device_tracker.karls_phone
-          - device_tracker.hass_ericjr
-      - type: custom:alarm_control_panel-card  
-        entity: alarm_control_panel.alarm  
-        title: My Alarm  
+          - device_tracker.google_maps_109984549047371398743
+          - device_tracker.google_maps_112651824816852593437
+          - device_tracker.google_maps_106390694792046678454
+          - device_tracker.google_maps_109585893024521841407
+          - device_tracker.google_maps_107433577949060247627
+          - device_tracker.google_maps_114738066185562245505
+      - id: 051c2d5a62014eada5e1287b3254ca8f  # Automatically created id
+        type: alarm-panel
+        entity: alarm_control_panel.alarm
+        title: My Alarm
         force_keypad: true
         states:
           - arm_home
           - arm_away
-      - type: weather-forecast
+      - id: 932832b857a14d97adaa33ebe3569b89  # Automatically created id
+        type: weather-forecast
         entity: weather.weather
-      - type: entities
+      - id: 68ff2de1c963409781cadddfb14cd92f  # Automatically created id
+        type: entities
         title: Tides and Storms
         entities:
           - sensor.noaa_tides
           - sensor.dark_sky_nearest_storm_distance
-      - type: picture-entity
+#          - sensor.nws_alert_count
+#          - sensor.nws_alert_event
+      - id: 2e9a92fe770845f5bf6913762d70811e  # Automatically created id
+        type: picture-entity
         entity: camera.wximage
         name: Satellite Composite
-      - type: entities
+      - id: 708bc4014509407eac22e2aea734e892  # Automatically created id
+        type: entities
         title: At a Glance
         entities:
           - sensor.house_average_temperature
@@ -103,55 +166,67 @@ views:
     title: security
     id: security
     cards:
-      - type: entities
+      - id: e2a1d3a3d39a410b95edcc7d6126b45f  # Automatically created id
+        type: entities
         title: Door Locks
         entities:
           - lock.locked
-      - type: entities
+      - id: 0a081ec4d4bd4ab180c740f7934d9866  # Automatically created id
+        type: entities
         title: Outside Doors
         entities:
           - binary_sensor.fdstatus
-          - binary_sensor.sdstatus          
-      - type: entities
+          - binary_sensor.sdstatus
+      - id: d25666b100974c9d916fd04f830dec39  # Automatically created id
+        type: entities
         title: Inside Doors
         entities:
           - binary_sensor.gunsafestatus
           - binary_sensor.centralite_3320l_1099e14b_1_1280
-      - type: entities
+      - id: 79ba188f7c264cd2a5076b215034f22e  # Automatically created id
+        type: entities
         title: Motion Sensors
         entities:
           - binary_sensor.hallbath_motion
           - binary_sensor.centralite_3326l_106cf116_1_1280
-      - type: entities
+      - id: c4c895a9a2d64e7ba4429cf39f8d857f  # Automatically created id
+        type: entities
         title: Smoke Detectors
         entities:
           - binary_sensor.hallsmoke
-      - type: entities
+      - id: d7490c96b8f84ad2ae18847afa2e340e  # Automatically created id
+        type: entities
         title: Outside Lights
         entities:
           - switch.ge_45609_onoff_relay_switch_switch
-          - switch.ge_45609_onoff_relay_switch_switch_2          
-      - type: entities
+          - switch.ge_45609_onoff_relay_switch_switch_2
+      - id: 40b3a011b82f4ed2aff132c4a2c33492  # Automatically created id
+        type: entities
         title: Tamper Sensors
         entities:
           - binary_sensor.gunsafetamper
           - binary_sensor.hallbathmultisensortamper
           - binary_sensor.frontdoortamper
-          - binary_sensor.sidedoortamper         
-      - type: picture-entity
+          - binary_sensor.sidedoortamper
+      - id: 645e206637194f6d9ac956be8d556a3f  # Automatically created id
+        type: picture-entity
         entity: camera.camera_network_rack
-      - type: picture-entity
+      - id: 38ccd7ade02049289a123f3140d4d59e  # Automatically created id
+        type: picture-entity
         entity: camera.driveway
-      - type: picture-entity
+      - id: 3859b2f9082f4973a8bd0c4814e75776  # Automatically created id
+        type: picture-entity
         entity: camera.side_door
-      - type: picture-entity
-        entity: camera.living_room      
-        
+      - id: b13ae592c3564360ae898f5f1bfccc6c  # Automatically created id
+        type: picture-entity
+        entity: camera.living_room
+
   - icon: mdi:air-conditioner
     title: Climate
     id: climate
     cards:
-      - type: entities
+      - id: 88a910ef20d74df9a15d56e589c83bad  # Automatically created id
+        type: entities
         title: HVAC System
         show_header_toggle: false
         entities:
@@ -159,14 +234,15 @@ views:
           - input_boolean.hvac_automation
           - sensor.days_until_filter_change
           - input_datetime.hvac_filter_last_changed
-#          - sensor.hvac_filter_time_used
-#          - sensor.hvac_duty_cycle_24h
+          - sensor.hvac_filter_time_used
+          - sensor.hvac_duty_cycle_24h
 #          - sensor.hvac_cost_30d
           - climate.2gig_technologies_ct101_thermostat_iris_cooling_1
           - climate.2gig_technologies_ct101_thermostat_iris_heating_1
-#          - binary_sensor.hvacfan
+          - binary_sensor.hvacfan
           - switch.ge_45609_onoff_relay_switch_switch_3
-      - type: entities
+      - id: 3b03bed4ad234e599674b0539e6901db  # Automatically created id
+        type: entities
         title: Temperature and Humidity Sensors
         show_header_toggle: false
         entities:
@@ -178,23 +254,31 @@ views:
           - sensor.vision_zp3111_multisensor_4in1_temperature
           - sensor.centralite_3320l_1099e14b_1_1026
           - sensor.centralite_3326l_106cf116_1_1026
-          - sensor.2gig_technologies_ct101_thermostat_iris_temperature
+          - sensor.2gig_technologies_ct101_thermostat_iris_humidity21 #this is actually the thermostat temperature.
           - type: divider
           - sensor.vision_zp3111_multisensor_4in1_relative_humidity
-#          - sensor.2gig_technologies_ct101_thermostat_iris_relative_humidity
+          - sensor.2gig_technologies_ct101_thermostat_iris_humidity35 #this is actually the thermostat humidity. It finally works.
 
   - icon: mdi:ticket
     title: Media Players
     id: mediaplayers
     cards:
-      - type: media-control
+      - id: e288256b715a4012aecbe35e9426eb0b  # Automatically created id
+        type: media-control
         entity: media_player.master_bedroom_speaker
+      - id: ba381deba83b454fbde4ec8ffdb25c47  # Automatically created id
+        type: media-control
+        entity: media_player.plex_plex_egu5f7c3kljoa1hatyd3kwkz
+      - id: c8a27e1e491643c7934326afd50d2daa  # Automatically created id
+        type: media-control
+        entity: media_player.unnamed_device
 
   - icon: mdi:desktop-classic
     title: System
     id: system
     cards:
-      - type: entities
+      - id: 5d07dc79e0e9481d985d2961e25d90dc  # Automatically created id
+        type: entities
         title: Printer
         entities:
           - sensor.printer_status_message
@@ -204,12 +288,13 @@ views:
           - sensor.yellow_toner_level
           - sensor.magenta_toner_level
           - sensor.black_toner_level
-      - type: entities
+      - id: 2c637dce9458427bbb6fbf0f6265e1e6  # Automatically created id
+        type: entities
         title: Server
         entities:
           - sensor.processor_use
-          - sensor.disk_use_percent_
-          - sensor.disk_use_percent_mntbackups
+          - sensor.disk_use_percent
+          - sensor.disk_use_percent_mnt_backups
           - sensor.memory_use_percent
           - sensor.hass_db_size
           - type: divider
@@ -220,18 +305,20 @@ views:
           - sensor.hp_ilo_system_temp
           - sensor.hp_ilo_cpu_1_temp
           - sensor.hp_ilo_cpu_2_temp
-      - type: entities
+      - id: 3e7eed8a9a4d4aef96bc963e822ca81a  # Automatically created id
+        type: entities
         title: Internet
         entities:
           - sensor.average_download_throughput_24h
           - sensor.internet_speed_in
           - sensor.internet_speed_out
-          - sensor.speedtest_download
-          - sensor.speedtest_upload
-          - sensor.speedtest_ping
-          - sensor.7_day_average_download_speed
-          - sensor.30_day_average_download_speed
-      - type: entities
+#          - sensor.speedtest_download
+#          - sensor.speedtest_upload
+#          - sensor.speedtest_ping
+#          - sensor.7_day_average_download_speed
+#          - sensor.30_day_average_download_speed
+      - id: e33b49892d5e4fab8ad098e5c43f6ebe  # Automatically created id
+        type: entities
         title: Sensor Batteries
         entities:
           - sensor.gunsafebattery

@@ -13,15 +13,17 @@ include:
     - binary_sensor.hvacfan
     - binary_sensor.sdstatus
     - binary_sensor.sidedoortamper
-    - device_tracker.dans_watch
-    - device_tracker.hass_ericjr
-    - device_tracker.hass_pixel2xl
-    - device_tracker.karlasphone
-    - device_tracker.karlsphone
-    - device_tracker.stephens_s8
-    - device_tracker.stephens_xboxone_wireless
+    - climate.2gig_technologies_ct101_thermostat_iris_cooling_1
+    - climate.2gig_technologies_ct101_thermostat_iris_heating_1
+    - device_tracker.google_maps_109984549047371398743
+    - device_tracker.google_maps_112651824816852593437
+    - device_tracker.google_maps_106390694792046678454
+    - device_tracker.google_maps_109585893024521841407
+    - device_tracker.google_maps_107433577949060247627
+    - device_tracker.google_maps_114738066185562245505
     - lock.locked
     - sensor.2gig_technologies_ct101_thermostat_iris_temperature
+    - sensor.2gig_technologies_ct101_thermostat_iris_humidity35
     - sensor.30_day_average_download_speed
     - sensor.7_day_average_download_speed
     - sensor.average_download_throughput_24h
@@ -32,7 +34,7 @@ include:
     - sensor.cyan_toner_level
     - sensor.dark_sky_temperature
     - sensor.dark_sky_nearest_storm_distance
-    - sensor.disk_use_percent_
+    - sensor.disk_use_percent
     - sensor.disk_use_percent_mntbackups
     - sensor.frontdoorbattery
     - sensor.frontdoorlockbattery
@@ -47,11 +49,13 @@ include:
     - sensor.hp_ilo_cpu_2_temp
     - sensor.hp_ilo_system_temp
     - sensor.hvac_duty_cycle_24h
+    - sensor.hvac_duty_cycle_7d
     - sensor.hvac_filter_time_used
     - sensor.internet_speed_in
     - sensor.internet_speed_out
     - sensor.magenta_toner_level
     - sensor.memory_use_percent
+    - sensor.processor_use
     - sensor.server_average_fanspeed
     - sensor.sidedoorbattery
     - sensor.sirenbattery

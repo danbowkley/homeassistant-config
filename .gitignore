@@ -13,6 +13,7 @@ known_devices.yaml
 options.xml
 OZW_Log.txt
 /.storage
+/.google_maps_location_sharing.cookies
 /tts
 .uuid
 zigbee.db
@@ -24,6 +25,7 @@ zigbee.db
 /.git
 /www/snapshots
 /www/*png
+/www/*jpg
 /www/sounds/*
 dbpasswd
 dumped.db

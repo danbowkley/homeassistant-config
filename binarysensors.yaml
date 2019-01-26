@@ -46,7 +46,12 @@
       entity_id: sensor.first_alert_unknown_type0001_id0001_alarm_type
       device_class: smoke
     hvacfan:
-      value_template: '{% if is_state_attr("climate.2gig_technologies_ct101_thermostat_iris_heating_1", "fan_state", "Running") %}True{% else %}False{% endif %}'
+      value_template: '{% if is_state_attr("climate.2gig_technologies_ct101_thermostat_iris_heating_1", "operating_state", "Idle") %}False{% else %}True{% endif %}'
       friendly_name: 'HVAC Blower Status'
       entity_id: climate.2gig_technologies_ct101_thermostat_iris_heating_1
       device_class: moving
+    doorsopen:
+      value_template: '{% if is_state("group.doorsandwindows", "on") %}True{% else %}False{% endif %}'
+      device_class: door
+      delay_on: 
+        minutes: 2

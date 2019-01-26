@@ -1,16 +1,12 @@
-usb_path: /dev/ttyUSB0
-polling_interval: 30000
-network_key: !secret zwave_netkey
-device_config:
-  sensor.2gig_technologies_ct101_thermostat_iris_relative_humidity:
-    ignored: false
-    polling_intensity: 1
-  sensor.2gig_technologies_ct101_thermostat_iris_temperature:
-    ignored: false
-    polling_intensity: 1
-  climate.2gig_technologies_ct101_thermostat_iris_cooling_1:
-    ignored: false
-    polling_intensity: 1
-  climate.2gig_technologies_ct101_thermostat_iris_heating_1:
-    ignored: false
-    polling_intensity: 1
+sensor.2gig_technologies_ct101_thermostat_iris_relative_humidity:
+  ignored: false
+  polling_intensity: 1
+sensor.2gig_technologies_ct101_thermostat_iris_temperature:
+  ignored: false
+  polling_intensity: 1
+climate.2gig_technologies_ct101_thermostat_iris_cooling_1:
+  ignored: false
+  polling_intensity: 1
+climate.2gig_technologies_ct101_thermostat_iris_heating_1:
+  ignored: false
+  polling_intensity: 1

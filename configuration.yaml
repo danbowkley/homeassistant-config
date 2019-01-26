@@ -7,11 +7,27 @@ homeassistant:
   time_zone: America/Chicago
   whitelist_external_dirs:
     - /home/homeassistant/.homeassistant/
+    - /home/homeassistant/.homeassistant/snapshots
   auth_providers:
     - type: homeassistant
     - type: legacy_api_password  
   customize: !include customize.yaml
 
+lovelace:
+  mode: yaml
+  
+proximity:
+  home:
+    devices:
+      - device_tracker.google_maps_109984549047371398743
+      - device_tracker.google_maps_112651824816852593437
+      - device_tracker.google_maps_106390694792046678454
+      - device_tracker.google_maps_109585893024521841407
+      - device_tracker.google_maps_114738066185562245505
+      - device_tracker.google_maps_112049465177067192481
+    tolerance: 50
+    unit_of_measurement: mi
+    
 config:
 
 map:
@@ -37,9 +53,13 @@ weather:
     name: Weather
        
 recorder:
-  purge_keep_days: 365
+  purge_keep_days: 180
   db_url: !secret mysql_dburl
-  
+#  exclude:
+#    entities:
+#      - sensor.nws_alert_count_any
+#      - sensor.nws_alert_event
+      
 frontend:
   javascript_version: latest
 
@@ -90,6 +110,25 @@ notify:
     recipient:
       - !secret email_dan
       - !secret email_dan_sms
+  - name: email_residents
+    platform: smtp
+    server: !secret email_server
+    port: !secret email_port
+    encryption: starttls
+    timeout: 10
+    username: !secret email_username
+    password: !secret email_password
+    sender: !secret email_sender
+    sender_name: Home Assistant
+    recipient:
+      - !secret email_dan
+      - !secret email_dan_sms
+      - !secret email_karla
+      - !secret email_karla_sms
+      - !secret email_stephen
+      - !secret email_stephen_sms
+      - !secret email_ericjr
+      - !secret email_ericjr_sms
   - name: email_everyone
     platform: smtp
     server: !secret email_server
@@ -109,6 +148,8 @@ notify:
       - !secret email_stephen_sms
       - !secret email_ericjr
       - !secret email_ericjr_sms
+      - !secret email_rainne
+      - !secret email_rainne_sms
   - name: push
     platform: html5
     gcm_api_key: !secret gcm_api_key
@@ -128,13 +169,17 @@ mqtt:
   password: !secret mqtt_pw
   
 device_tracker:
-  - platform: owntracks
+#  - platform: owntracks
+#    max_gps_accuracy: 500
+#  - platform: unifi
+#    host: !secret unifi_host
+#    username: !secret unifi_username
+#    password: !secret unifi_password
+  - platform: google_maps
+    username: !secret google_username
+    password: !secret google_password
     max_gps_accuracy: 500
-  - platform: unifi
-    host: !secret unifi_host
-    username: !secret unifi_username
-    password: !secret unifi_password
-            
+    
 group:
   !include groups.yaml
 
@@ -142,7 +187,10 @@ automation:
   !include automations.yaml
   
 zwave:
-  !include zwave_device_config.yaml
+  usb_path: /dev/ttyUSB0
+  polling_interval: 30000
+  network_key: !secret zwave_netkey
+  device_config: !include zwave_device_config.yaml
 
 zha:
   usb_path: /dev/ttyUSB1
@@ -192,7 +240,7 @@ alarm_control_panel:
   - platform: manual
     name: alarm
     code: !secret alarm_code
-    pending_time: 10
+    pending_time: 0
     delay_time: 0
     trigger_time: 120
     disarmed:

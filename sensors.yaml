@@ -1,3 +1,34 @@
+# NWS Alerts platform. It crashes my history.
+#- platform: rest
+#  resource: https://api.weather.gov/alerts/active/count
+#  name: NWS Alert Count
+#  value_template: >
+#    {% if value_json.zones.FLZ206 is defined %}
+#      {{ value_json.zones.FLZ206 }}
+#    {% else %}
+#      0
+#    {% endif %}
+#  headers:
+#    User-Agent: Homeassistant
+#    Accept: application/ld+json
+#  scan_interval: 60
+#    
+#- platform: rest
+#  resource: https://api.weather.gov/alerts/active?zone=FLZ206
+#  name: NWS Alert Event
+#  value_template: >
+#    {% if value_json.features[0] is defined %}
+#      {{ value_json['features'][0]['properties'].event }}
+#    {% else %}
+#      None
+#    {% endif %}
+#  json_attributes:
+#    - features
+#  headers:
+#    User-Agent: Homeassistant
+#    Accept: application/geo+json
+#  scan_interval: 60
+
 # Xerox printer status
 - platform: snmp
   name: 'prncplmsg'
@@ -76,12 +107,12 @@
 - platform: snmp
   name: router_wan_in
   host: 192.168.1.1
-  baseoid: 1.3.6.1.2.1.2.2.1.10.4
+  baseoid: 1.3.6.1.2.1.2.2.1.10.2
 
 - platform: snmp
   name: router_wan_out
   host: 192.168.1.1
-  baseoid: 1.3.6.1.2.1.2.2.1.16.4
+  baseoid: 1.3.6.1.2.1.2.2.1.16.2
   
 - platform: noaa_tides
   station_id: 8729210
@@ -134,11 +165,11 @@
       sensor_type: server_health
       unit_of_measurement: '%'
       value_template: '{{ ilo_data.fans["Fan 6"].speed[0] }}'
-    - name: system temp
+    - name: ambient temp
       sensor_type: server_health
       unit_of_measurement: '°C'
       value_template: '{{ ilo_data.temperature["Temp 1"].currentreading[0] }}'
-    - name: ambient temp
+    - name: system temp
       sensor_type: server_health
       unit_of_measurement: '°C'
       value_template: '{{ ilo_data.temperature["Temp 29"].currentreading[0] }}'
@@ -151,48 +182,48 @@
       unit_of_measurement: '°C'
       value_template: '{{ ilo_data.temperature["Temp 3"].currentreading[0] }}'
 
-- platform: speedtest
-  server_id: 16618
-  minute:
-    - 7
+#- platform: speedtest
+#  server_id: 16618
+#  minute:
+#    - 7
 #    - 27
 #    - 47
-  monitored_conditions:
-    - ping
-    - download
-    - upload
+#  monitored_conditions:
+#    - ping
+#    - download
+#    - upload
 
 - platform: sql
   db_url: !secret mysql_dburl
   queries:
-  - name: 7 Day Average Download Speed
-    query: >
-             SELECT ROUND(AVG(avg_dlspeed),2) 'value'
-             FROM (
-               SELECT AVG(state) AS avg_dlspeed
-               FROM hass.states
-               WHERE entity_id = 'sensor.speedtest_download'
-               AND state != 'unknown'
-               AND state != ''
-               AND created > NOW() - INTERVAL 1 WEEK
-               GROUP BY DATE(created)
-             ) avgs;
-    column: 'value'
-    unit_of_measurement: Mbit/s
-  - name: 30 Day Average Download Speed
-    query: >
-             SELECT ROUND(AVG(avg_dlspeed),2) 'value'
-             FROM (
-               SELECT AVG(state) AS avg_dlspeed
-               FROM hass.states
-               WHERE entity_id = 'sensor.speedtest_download'
-               AND state != 'unknown'
-               AND state != ''
-               AND created > NOW() - INTERVAL 1 MONTH
-               GROUP BY DATE(created)
-             ) avgs;
-    column: 'value'
-    unit_of_measurement: Mbit/s
+#  - name: 7 Day Average Download Speed
+#    query: >
+#             SELECT ROUND(AVG(avg_dlspeed),2) 'value'
+#             FROM (
+#               SELECT AVG(state) AS avg_dlspeed
+#               FROM hass.states
+#               WHERE entity_id = 'sensor.speedtest_download'
+#               AND state != 'unknown'
+#               AND state != ''
+#               AND created > NOW() - INTERVAL 1 WEEK
+#               GROUP BY DATE(created)
+#             ) avgs;
+#    column: 'value'
+#    unit_of_measurement: Mbit/s
+#  - name: 30 Day Average Download Speed
+#    query: >
+#             SELECT ROUND(AVG(avg_dlspeed),2) 'value'
+#             FROM (
+#               SELECT AVG(state) AS avg_dlspeed
+#               FROM hass.states
+#               WHERE entity_id = 'sensor.speedtest_download'
+#               AND state != 'unknown'
+#               AND state != ''
+#               AND created > NOW() - INTERVAL 1 MONTH
+#               GROUP BY DATE(created)
+#             ) avgs;
+#    column: 'value'
+#    unit_of_measurement: Mbit/s
   - name: HASS DB size
     query: >
              SELECT table_schema 'database', Round(Sum(data_length + index_length) / 1048576, 2) 'value' 
@@ -267,6 +298,15 @@
   type: ratio
   duration:
     hours: 24
+  end: '{{ now() }}'
+
+- platform: history_stats
+  name: HVAC Duty Cycle 7d
+  entity_id: binary_sensor.hvacfan
+  state: 'on'
+  type: ratio
+  duration:
+    days: 7
   end: '{{ now() }}'
   
 - platform: template
@@ -346,5 +386,6 @@
       unit_of_measurement: 'Mbit/s'
     days_until_filter_change:
       friendly_name: 'Days until HVAC filter change'
-      value_template: '{{ (((500 - (states.sensor.hvac_filter_time_used.state | float)) / ((states.sensor.hvac_duty_cycle_24h.state | float)/100)) / 24) | round(1) }}'
+      value_template: '{{ (((300 - (states.sensor.hvac_filter_time_used.state | float)) / ((states.sensor.hvac_duty_cycle_7d.state | float)/100)) / 24) | round(1) }}'
       unit_of_measurement: 'Days'
+      

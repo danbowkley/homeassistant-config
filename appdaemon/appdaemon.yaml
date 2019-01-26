@@ -8,4 +8,5 @@ appdaemon:
     HASS:
       type: hass
       ha_url: !secret ha_url
-      ha_key: !secret api_pw
+      token: !secret hass_key
+      
