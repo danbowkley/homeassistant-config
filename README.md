@@ -8,6 +8,7 @@ Interesting tidbits include SNMP monitoring of a color laser printer, an Appdaem
 To-do: 
 * Get Google Hangouts messages working. This is gonna be REALLY fun.
   * Maybe not, since they're killing Hangouts. Is its replacement supported?
+  * Whichever chat we use, create a plain English chat bot with which to converse
 * Automation: if the trash hasn't gone out, send a Hangouts nag-o-gram to whoever is home.
   * How do we determine if the trash is by the curb or in the breezeway? I'm thinking a big QR code sticker on each bin.
 * Figure out why the HP-iLo component takes so bloody long to update and fix it.
@@ -15,3 +16,4 @@ To-do:
 * Get motion detection through the UniFi cameras working again (it worked back around 0.45 or so).
 * Build an integration for Mojio (T-Mobile SyncUp Drive) device tracking
 * Build an integration for APRS (amateur radio GPS position tracking and remote telemetry) device tracking
+* Build an integration for APRS to transmit home telemetry data over the APRS network
